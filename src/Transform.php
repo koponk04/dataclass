@@ -104,6 +104,11 @@ class Transform
             } catch (TransformException $e) {
                 $errors = [... $errors, ...$e->getErrors()];
             }
+
+            $propertyDoc = strval($property->getDocComment());
+            if (false !== strpos($propertyDoc, 'processedProperty')) {
+                unset($finalData[$name]);
+            }
         }
 
         if (count($errors) > 0) {
