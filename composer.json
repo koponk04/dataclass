@@ -1,5 +1,5 @@
 {
-    "name": "rutek/dataclass",
+    "name": "koponk04/dataclass",
     "description": "Library for validation of type-hinted classes",
     "type": "library",
     "require-dev": {
