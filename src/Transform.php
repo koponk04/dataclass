@@ -295,6 +295,12 @@ class Transform
         foreach ($data as $key => $item) {
             $objects[] = $this->checkType($itemType, $item, $fieldName . '.' . $key);
         }
+
+        $propertyDoc = strval($class->getDocComment());
+        if (false !== strpos($propertyDoc, 'processedProperty')) {
+            return new $typeName();
+        }
+
         return new $typeName(...$objects);
     }
 }
