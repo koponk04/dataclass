@@ -26,6 +26,7 @@ class Transform
      */
     public function to(string $class, $data, ?string $fieldName = null)
     {
+        $unsetData = [];
         if ($data === null) {
             throw new TransformException(
                 $this->to(FieldError::class, ['field' => $fieldName ?? 'root', 'reason' => 'Data could not be decoded'])
@@ -108,6 +109,7 @@ class Transform
             $propertyDoc = strval($property->getDocComment());
             if (false !== strpos($propertyDoc, 'processedProperty')) {
                 unset($finalData[$name]);
+                $unsetData[] = $name;
             }
         }
 
@@ -166,6 +168,10 @@ class Transform
 
         foreach ($finalData as $field => $value) {
             $obj->$field = $value;
+        }
+
+        foreach ($unsetData as $key) {
+            unset($obj->$key);
         }
 
         return $obj;
